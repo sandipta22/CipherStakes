@@ -1,5 +1,8 @@
 
 "use client";
+import { Wallet } from "lucide-react";
+import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 import {
   Navbar as ResizableNavbar,
   NavBody,
@@ -10,8 +13,6 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
-import { Wallet } from "lucide-react";
-import { useState } from "react";
 
 const navItems = [
   { name: "About", link: "#about" },
@@ -38,7 +39,11 @@ const Navbar = () => {
         <CipherStakesLogo />
         <NavItems items={navItems} />
         <div className="flex items-center gap-4">
-          <NavbarButton variant="primary" className="hidden sm:flex">
+          <NavbarButton
+            variant="primary"
+            className="hidden sm:flex"
+            onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' })}
+          >
             <Wallet className="mr-2 h-4 w-4" />
             Connect Wallet
           </NavbarButton>
@@ -70,7 +75,10 @@ const Navbar = () => {
           ))}
           <div className="flex w-full flex-col gap-4 mt-4">
             <NavbarButton
-              onClick={() => setIsMobileMenuOpen(false)}
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' });
+              }}
               variant="primary"
               className="w-full"
             >

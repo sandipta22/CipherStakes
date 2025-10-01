@@ -1,5 +1,6 @@
 import { DollarSign, Sparkles, Globe, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 
 const VaultHighlight = () => {
   const benefits = [
@@ -100,7 +101,12 @@ const VaultHighlight = () => {
 
           {/* CTA */}
           <div className="pt-12 animate-slide-in-up" style={{ animationDelay: '0.6s' }}>
-            <Button variant="neon" size="xl" className="group text-xl px-16 py-8">
+            <Button
+              variant="neon"
+              size="xl"
+              className="group text-xl px-16 py-8"
+              onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration and $10 deposit coming soon!' })}
+            >
               <DollarSign className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
               Deposit $10 Now
             </Button>

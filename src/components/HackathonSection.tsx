@@ -88,9 +88,16 @@ const HackathonSection = () => {
 
             {/* CTA */}
             <div className="pt-8 text-center">
-              <Button variant="neonOutline" size="lg" className="group">
-                Learn More About Colosseum
-                <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              <Button
+                variant="neonOutline"
+                size="lg"
+                className="group"
+                asChild
+              >
+                <a href="https://colosseum.org/" target="_blank" rel="noopener noreferrer">
+                  Learn More About Colosseum
+                  <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                </a>
               </Button>
             </div>
           </div>

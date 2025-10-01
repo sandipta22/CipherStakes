@@ -78,7 +78,15 @@ const UrgencySection = () => {
 
           {/* CTA */}
           <div className="pt-8 animate-slide-in-up" style={{ animationDelay: '0.5s' }}>
-            <Button variant="neonCyan" size="xl" className="group">
+            <Button
+              variant="neonCyan"
+              size="xl"
+              className="group"
+              onClick={() => {
+                const waitlist = document.querySelector('#footer-waitlist');
+                if (waitlist) waitlist.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               <Zap className="mr-2 h-5 w-5 group-hover:animate-pulse" />
               Claim Your Spot Before It's Gone
             </Button>

@@ -2,10 +2,11 @@ import { Button } from "@/components/ui/button";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import { Sparkles, Lock, TrendingUp } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import { toast } from "@/components/ui/use-toast";
 
 const HeroSection = () => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden z-30">
       {/* Animated Background */}
       <div 
         className="absolute inset-0 z-0"
@@ -56,11 +57,23 @@ const HeroSection = () => {
 
           {/* CTAs */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6">
-            <Button variant="neon" size="xl" className="group">
+            <Button
+              variant="neon"
+              size="xl"
+              className="group"
+              onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration and $10 deposit coming soon!' })}
+            >
               <Lock className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
               Deposit $10 & PuzzleFi
             </Button>
-            <Button variant="neonOutline" size="xl">
+            <Button
+              variant="neonOutline"
+              size="xl"
+              onClick={() => {
+                const waitlist = document.querySelector('#footer-waitlist');
+                if (waitlist) waitlist.scrollIntoView({ behavior: 'smooth' });
+              }}
+            >
               <Sparkles className="mr-2 h-5 w-5" />
               Join Waitlist
             </Button>

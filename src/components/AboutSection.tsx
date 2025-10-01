@@ -68,7 +68,14 @@ const AboutSection = () => {
                   </div>
                 ))}
               </div>
-              <Button variant="neonPurple" size="lg">
+              <Button
+                variant="neonPurple"
+                size="lg"
+                onClick={() => {
+                  const how = document.querySelector('#how');
+                  if (how) how.scrollIntoView({ behavior: 'smooth' });
+                }}
+              >
                 Explore How It Works
               </Button>
             </div>

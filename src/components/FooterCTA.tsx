@@ -2,12 +2,33 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Twitter, MessageCircle, Send } from "lucide-react";
 import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 const FooterCTA = () => {
   const [email, setEmail] = useState("");
+  const [twitter, setTwitter] = useState("");
+  const [telegram, setTelegram] = useState("");
+  const [discord, setDiscord] = useState("");
+
+  const handleWaitlistSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email) {
+      toast({ title: "Email required", description: "Please enter your email address.", });
+      return;
+    }
+    // Here you would send data to backend
+    toast({
+      title: "Waitlist Joined!",
+      description: `Email: ${email}\nTwitter: ${twitter || "-"}\nTelegram: ${telegram || "-"}\nDiscord: ${discord || "-"}`,
+    });
+    setEmail("");
+    setTwitter("");
+    setTelegram("");
+    setDiscord("");
+  };
 
   return (
-    <footer className="relative py-16 overflow-hidden border-t border-border/20">
+  <footer id="footer-waitlist" className="relative py-16 overflow-hidden border-t border-border/20">
       <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker via-cyber-dark to-cyber-dark" />
       
       {/* Animated background glow */}
@@ -33,7 +54,12 @@ const FooterCTA = () => {
           <div className="space-y-6 animate-slide-in-up" style={{ animationDelay: '0.1s' }}>
             {/* Primary CTA - Deposit */}
             <div>
-              <Button variant="neon" size="xl" className="w-full sm:w-auto group">
+              <Button
+                variant="neon"
+                size="xl"
+                className="w-full sm:w-auto group"
+                onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration and $10 deposit coming soon!' })}
+              >
                 <Lock className="mr-2 h-5 w-5 group-hover:rotate-12 transition-transform" />
                 Enter Vault
               </Button>
@@ -47,9 +73,8 @@ const FooterCTA = () => {
             </div>
 
             {/* Waitlist form */}
-            <div className="glass-panel p-6 rounded-xl max-w-2xl mx-auto">
+            <form className="glass-panel p-6 rounded-xl max-w-2xl mx-auto" onSubmit={handleWaitlistSubmit}>
               <h3 className="font-orbitron font-bold text-xl mb-6 neon-text-purple">Join the Waitlist</h3>
-              
               <div className="space-y-4">
                 {/* Email input */}
                 <div className="flex flex-col sm:flex-row gap-3">
@@ -63,29 +88,58 @@ const FooterCTA = () => {
                       className="pl-10 bg-background/50 border-border/50 focus:border-primary"
                     />
                   </div>
-                  <Button variant="neonCyan" className="group">
+                  <Button variant="neonCyan" className="group" type="submit">
                     <Send className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     Subscribe
                   </Button>
                 </div>
-
+                {/* Social handles */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <Input
+                    type="text"
+                    placeholder="Twitter @handle"
+                    value={twitter}
+                    onChange={(e) => setTwitter(e.target.value)}
+                    className="bg-background/50 border-border/50 focus:border-primary"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Telegram @handle"
+                    value={telegram}
+                    onChange={(e) => setTelegram(e.target.value)}
+                    className="bg-background/50 border-border/50 focus:border-primary"
+                  />
+                  <Input
+                    type="text"
+                    placeholder="Discord handle"
+                    value={discord}
+                    onChange={(e) => setDiscord(e.target.value)}
+                    className="bg-background/50 border-border/50 focus:border-primary"
+                  />
+                </div>
                 {/* Social connect */}
                 <div className="pt-4 border-t border-border/30">
                   <p className="text-sm text-muted-foreground mb-3">Connect with us:</p>
                   <div className="flex justify-center gap-3">
-                    <Button variant="ghost" size="icon" className="hover:neon-border-blue">
-                      <Twitter className="h-5 w-5" />
+                    <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
+                      <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                        <Twitter className="h-5 w-5" />
+                      </a>
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:neon-border-blue">
-                      <Send className="h-5 w-5" />
+                    <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
+                      <a href="https://t.me/" target="_blank" rel="noopener noreferrer">
+                        <Send className="h-5 w-5" />
+                      </a>
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:neon-border-blue">
-                      <MessageCircle className="h-5 w-5" />
+                    <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
+                      <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">
+                        <MessageCircle className="h-5 w-5" />
+                      </a>
                     </Button>
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
 
           {/* Security badge */}
