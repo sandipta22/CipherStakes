@@ -79,19 +79,16 @@ const Navbar = () => {
           ))}
           <div className="flex w-full flex-col gap-4 mt-4">
             {/* HoverBorderGradient applied to Connect Wallet button in mobile nav */}
-            <HoverBorderGradient as="div" containerClassName="w-full">
-              <NavbarButton
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' });
-                }}
-                variant="primary"
-                className="bg-transparent shadow-none text-white w-full px-6 py-2"
-              >
-                <Wallet className="mr-2 h-4 w-4" />
-                Connect Wallet
-              </NavbarButton>
-            </HoverBorderGradient>
+            <HoverBorderGradient as="div" containerClassName=" sm:flex">
+            <NavbarButton
+              variant="primary"
+              className="bg-transparent shadow-none text-white px-6 py-2 flex items-center gap-2"
+              onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' })}
+            >
+              <Wallet className="h-5 w-5" />
+              <span className="whitespace-nowrap">Connect Wallet</span>
+            </NavbarButton>
+          </HoverBorderGradient>
           </div>
         </MobileNavMenu>
       </MobileNav>

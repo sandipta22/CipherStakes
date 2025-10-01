@@ -10,25 +10,73 @@ const FooterCTA = () => {
   const [telegram, setTelegram] = useState("");
   const [discord, setDiscord] = useState("");
 
-  const handleWaitlistSubmit = (e: React.FormEvent) => {
+  // Email validation function
+  const isValidEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const handleWaitlistSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Email validation
     if (!email) {
-      toast({ title: "Email required", description: "Please enter your email address.", });
+      toast({ 
+        title: "Email required", 
+        description: "Please enter your email address.",
+        variant: "destructive" 
+      });
       return;
     }
-    // Here you would send data to backend
-    toast({
-      title: "Waitlist Joined!",
-      description: `Email: ${email}\nTwitter: ${twitter || "-"}\nTelegram: ${telegram || "-"}\nDiscord: ${discord || "-"}`,
-    });
-    setEmail("");
-    setTwitter("");
-    setTelegram("");
-    setDiscord("");
+
+    if (!isValidEmail(email)) {
+      toast({ 
+        title: "Invalid email", 
+        description: "Please enter a valid email address.",
+        variant: "destructive" 
+      });
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          twitter,
+          telegram,
+          discord
+        })
+      });
+      
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to join waitlist");
+      }
+      
+      toast({
+        title: "Waitlist Joined!",
+        description: `Email: ${email}\nTwitter: ${twitter || "-"}\nTelegram: ${telegram || "-"}\nDiscord: ${discord || "-"}`,
+      });
+      
+      // Reset form
+      setEmail("");
+      setTwitter("");
+      setTelegram("");
+      setDiscord("");
+      
+    } catch (err: any) {
+      toast({
+        title: "Error",
+        description: err.message || "Something went wrong. Please try again.",
+        variant: "destructive"
+      });
+    }
   };
 
   return (
-  <footer id="footer-waitlist" className="relative py-16 overflow-hidden border-t border-border/20">
+    <footer id="footer-waitlist" className="relative py-16 overflow-hidden border-t border-border/20">
       <div className="absolute inset-0 bg-gradient-to-t from-cyber-darker via-cyber-dark to-cyber-dark" />
       
       {/* Animated background glow */}
@@ -86,13 +134,11 @@ const FooterCTA = () => {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="pl-10 bg-background/50 border-border/50 focus:border-primary"
+                      required
                     />
                   </div>
-                  <Button variant="neonCyan" className="group" type="submit">
-                    <Send className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                    Subscribe
-                  </Button>
                 </div>
+                
                 {/* Social handles */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <Input
@@ -116,7 +162,12 @@ const FooterCTA = () => {
                     onChange={(e) => setDiscord(e.target.value)}
                     className="bg-background/50 border-border/50 focus:border-primary"
                   />
+                  <Button variant="neonCyan" className="group w-full" type="submit">
+                    <Send className="mr-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    Subscribe
+                  </Button>
                 </div>
+                
                 {/* Social connect */}
                 <div className="pt-4 border-t border-border/30">
                   <p className="text-sm text-muted-foreground mb-3">Connect with us:</p>
