@@ -92,19 +92,39 @@ const AboutSection = () => {
                     data={[
                       {
                         title: "Deposit",
-                        content: <p className="text-lg text-muted-foreground">Pool stablecoins into vaults</p>,
+                        content: (
+                          <div className="flex items-center gap-4 min-h-[64px]">
+                            <Shield className="h-10 w-10 neon-text-blue shrink-0" />
+                            <p className="text-lg text-muted-foreground">Pool stablecoins into vaults</p>
+                          </div>
+                        ),
                       },
                       {
                         title: "Yield Staking",
-                        content: <p className="text-lg text-muted-foreground">Earn 5-12% APY automatically</p>,
+                        content: (
+                          <div className="flex items-center gap-4 min-h-[64px]">
+                            <TrendingUp className="h-10 w-10 neon-text-purple shrink-0" />
+                            <p className="text-lg text-muted-foreground">Earn 5-12% APY automatically</p>
+                          </div>
+                        ),
                       },
                       {
                         title: "Puzzle Wallets",
-                        content: <p className="text-lg text-muted-foreground">Solve challenges to claim prizes</p>,
+                        content: (
+                          <div className="flex items-center gap-4 min-h-[64px]">
+                            <Puzzle className="h-10 w-10 neon-text-pink shrink-0" />
+                            <p className="text-lg text-muted-foreground">Solve challenges to claim prizes</p>
+                          </div>
+                        ),
                       },
                       {
                         title: "Claim Rewards",
-                        content: <p className="text-lg text-muted-foreground">Withdraw principal + prizes anytime</p>,
+                        content: (
+                          <div className="flex items-center gap-4 min-h-[64px]">
+                            <Users className="h-10 w-10 neon-text-blue shrink-0" />
+                            <p className="text-lg text-muted-foreground">Withdraw principal + prizes anytime</p>
+                          </div>
+                        ),
                       },
                     ]}
                   />

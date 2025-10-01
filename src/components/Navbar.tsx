@@ -13,6 +13,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
+import { HoverBorderGradient } from "./ui/hover-border-gradient";
 
 const navItems = [
   { name: "About", link: "#about" },
@@ -39,14 +40,17 @@ const Navbar = () => {
         <CipherStakesLogo />
         <NavItems items={navItems} />
         <div className="flex items-center gap-4">
-          <NavbarButton
-            variant="primary"
-            className="hidden sm:flex"
-            onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' })}
-          >
-            <Wallet className="mr-2 h-4 w-4" />
-            Connect Wallet
-          </NavbarButton>
+          {/* HoverBorderGradient applied to Connect Wallet button */}
+          <HoverBorderGradient as="div" containerClassName="hidden sm:flex">
+            <NavbarButton
+              variant="primary"
+              className="bg-transparent shadow-none text-white px-6 py-2 flex items-center gap-2"
+              onClick={() => toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' })}
+            >
+              <Wallet className="h-5 w-5" />
+              <span className="whitespace-nowrap">Connect Wallet</span>
+            </NavbarButton>
+          </HoverBorderGradient>
         </div>
       </NavBody>
 
@@ -74,17 +78,20 @@ const Navbar = () => {
             </a>
           ))}
           <div className="flex w-full flex-col gap-4 mt-4">
-            <NavbarButton
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' });
-              }}
-              variant="primary"
-              className="w-full"
-            >
-              <Wallet className="mr-2 h-4 w-4" />
-              Connect Wallet
-            </NavbarButton>
+            {/* HoverBorderGradient applied to Connect Wallet button in mobile nav */}
+            <HoverBorderGradient as="div" containerClassName="w-full">
+              <NavbarButton
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  toast({ title: 'Coming Soon', description: 'Solana wallet integration coming soon!' });
+                }}
+                variant="primary"
+                className="bg-transparent shadow-none text-white w-full px-6 py-2"
+              >
+                <Wallet className="mr-2 h-4 w-4" />
+                Connect Wallet
+              </NavbarButton>
+            </HoverBorderGradient>
           </div>
         </MobileNavMenu>
       </MobileNav>

@@ -91,10 +91,10 @@ const HackathonSection = () => {
               <Button
                 variant="neonOutline"
                 size="lg"
-                className="group"
+                className="group w-full sm:w-auto px-6 py-4 text-base sm:text-lg"
                 asChild
               >
-                <a href="https://colosseum.org/" target="_blank" rel="noopener noreferrer">
+                <a href="https://colosseum.org/" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full">
                   Learn More About Colosseum
                   <ExternalLink className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </a>

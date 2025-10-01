@@ -6,17 +6,18 @@ import VaultHighlight from "@/components/VaultHighlight";
 import HackathonSection from "@/components/HackathonSection";
 import FooterCTA from "@/components/FooterCTA";
 import { Spotlight } from "@/components/ui/spotlight-new";
-import { SmallGridBackground } from "@/components/ui/smallGridBackground";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+
 
 
 const Index = () => {
   return (
-    <SmallGridBackground>
-      <div className="min-h-screen bg-cyber-darker relative z-10">
+    <div className="relative min-h-screen w-full overflow-hidden">
+
+      
+      {/* Main content */}
+      <div className="relative z-10 min-h-screen w-full">
         <Navbar />
-        <div className="absolute w-full h-full overflow-hidden top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 animate-gradient-x">
-          <Spotlight />
-        </div>
         <main>
           {/* Increase z-index for HeroSection to fully overlap grid */}
           <div className="relative z-20">
@@ -35,7 +36,7 @@ const Index = () => {
           <FooterCTA />
         </main>
       </div>
-    </SmallGridBackground>
+    </div>
   );
 };
 

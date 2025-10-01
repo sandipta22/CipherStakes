@@ -81,7 +81,7 @@ const UrgencySection = () => {
             <Button
               variant="neonCyan"
               size="xl"
-              className="group"
+              className="group w-full sm:w-auto px-6 py-4 text-base sm:text-lg"
               onClick={() => {
                 const waitlist = document.querySelector('#footer-waitlist');
                 if (waitlist) waitlist.scrollIntoView({ behavior: 'smooth' });

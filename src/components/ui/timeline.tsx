@@ -16,18 +16,27 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
   // Calculate scroll progress on scroll
   const handleScroll = (e: UIEvent<HTMLDivElement>) => {
     const target = e.currentTarget;
-    const total = target.scrollHeight - target.clientHeight;
-    const current = target.scrollTop;
+    const total = scrollHeight - target.clientHeight;
+    const current = Math.min(target.scrollTop, total); // Cap scrollTop to prevent overflow
     setProgress(total > 0 ? current / total : 0);
   };
 
-  // Set scrollHeight for the vertical line and step offsets for checkpoints
+  // Set scrollHeight to include symmetric padding and step offsets for checkpoints
   useEffect(() => {
-    if (containerRef.current) {
-      setScrollHeight(containerRef.current.scrollHeight);
-      // Calculate the offsetTop for each step
+    if (containerRef.current && data.length > 0) {
       const stepEls = Array.from(containerRef.current.querySelectorAll('.timeline-step')) as HTMLElement[];
-      setStepOffsets(stepEls.map(el => el.offsetTop + el.offsetHeight / 2));
+      if (stepEls.length > 0) {
+        // Get the offsetTop of the first step to use as symmetric padding
+        const firstStepOffset = stepEls[0].offsetTop;
+        // Set scrollHeight to the last checkpoint's offsetTop + its height + first step's offsetTop
+        const lastStep = stepEls[stepEls.length - 1];
+        const newScrollHeight = lastStep.offsetTop + lastStep.offsetHeight + firstStepOffset;
+        setScrollHeight(newScrollHeight);
+        // Calculate the offsetTop for each step
+        setStepOffsets(stepEls.map(el => el.offsetTop + el.offsetHeight / 2));
+        // Adjust container's padding-bottom to match the last checkpoint
+        containerRef.current.style.paddingBottom = `${firstStepOffset}px`;
+      }
     }
   }, [data]);
 
@@ -56,14 +65,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           className="absolute inset-x-0 top-0 w-[2px] bg-gradient-to-t from-cyan-400 via-blue-500 to-purple-500 from-[0%] via-[40%] rounded-full shadow-cyan-400/30"
         />
       </div>
-      <div className="relative pb-20 z-10">
+      <div className="relative z-10">
         {data.map((item, index) => {
           // Determine if this checkpoint is reached
           const checkpointReached = stepOffsets[index] !== undefined && (progress * scrollHeight) >= stepOffsets[index];
           return (
             <div
               key={index}
-              className="timeline-step flex justify-start pt-10 md:pt-40 md:gap-10"
+              className="timeline-step flex justify-start py-20 md:py-32 md:gap-10"
             >
               <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
                 <div className={`h-10 absolute left-3 md:left-3 w-10 rounded-full flex items-center justify-center transition-all duration-300 ${checkpointReached ? 'scale-110' : ''}`}
