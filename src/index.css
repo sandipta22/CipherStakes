@@ -1,0 +1,208 @@
+/* Custom scrollbar for About section main container */
+.about-section-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #7f5af0 #181a20; /* neon-purple on cyber-dark */
+}
+.about-section-scrollbar::-webkit-scrollbar {
+  width: 10px;
+  background: #181a20;
+}
+.about-section-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #7f5af0 0%, #00eaff 100%);
+  border-radius: 8px;
+  border: 2px solid #181a20;
+}
+.about-section-scrollbar::-webkit-scrollbar-track {
+  background: #181a20;
+  border-radius: 8px;
+}
+  .bg-glassmorphism {
+    background: hsl(var(--card) / 0.4);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid hsl(var(--border) / 0.18);
+    box-shadow: 0 4px 32px 0 hsl(var(--card) / 0.18);
+  }
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cyberpunk DeFi Color System */
+    --background: 0 0% 4%;
+    --foreground: 180 100% 97%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 180 100% 97%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 180 100% 97%;
+
+    /* Neon Electric Blue */
+    --primary: 184 100% 50%;
+    --primary-foreground: 0 0% 4%;
+
+    /* Cyber Purple */
+    --secondary: 290 92% 54%;
+    --secondary-foreground: 0 0% 4%;
+
+    /* Muted dark tones */
+    --muted: 240 10% 15%;
+    --muted-foreground: 180 20% 65%;
+
+    /* Turquoise accent */
+    --accent: 180 100% 60%;
+    --accent-foreground: 0 0% 4%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 20% 20%;
+    --input: 240 20% 20%;
+    --ring: 184 100% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom cyberpunk tokens */
+    --neon-blue: 184 100% 50%;
+    --neon-purple: 290 92% 54%;
+    --neon-cyan: 180 100% 60%;
+    --cyber-dark: 0 0% 4%;
+    --cyber-darker: 0 0% 2%;
+    
+    /* Glow effects */
+    --glow-blue: 0 0 20px hsl(184 100% 50% / 0.6), 0 0 40px hsl(184 100% 50% / 0.4);
+    --glow-purple: 0 0 20px hsl(290 92% 54% / 0.6), 0 0 40px hsl(290 92% 54% / 0.4);
+    --glow-cyan: 0 0 20px hsl(180 100% 60% / 0.6), 0 0 40px hsl(180 100% 60% / 0.4);
+    
+    /* Gradient tokens */
+    --gradient-cyber: linear-gradient(135deg, hsl(184 100% 50%), hsl(290 92% 54%), hsl(180 100% 60%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 4%), hsl(240 10% 8%));
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Rajdhani', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 700;
+  }
+}
+
+/* Cyberpunk utility classes */
+@layer utilities {
+  .neon-text-blue {
+    color: hsl(var(--neon-blue));
+    text-shadow: var(--glow-blue);
+  }
+
+  .neon-text-purple {
+    color: hsl(var(--neon-purple));
+    text-shadow: var(--glow-purple);
+  }
+
+  .neon-text-cyan {
+    color: hsl(var(--neon-cyan));
+    text-shadow: var(--glow-cyan);
+  }
+
+  .gradient-text {
+    background: var(--gradient-cyber);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .glass-panel {
+    background: hsl(var(--card) / 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border) / 0.3);
+  }
+
+  .neon-border-blue {
+    border: 2px solid hsl(var(--neon-blue));
+    box-shadow: var(--glow-blue), inset var(--glow-blue);
+  }
+
+  .neon-border-purple {
+    border: 2px solid hsl(var(--neon-purple));
+    box-shadow: var(--glow-purple), inset var(--glow-purple);
+  }
+
+  .neon-border-cyan {
+    border: 2px solid hsl(var(--neon-cyan));
+    box-shadow: var(--glow-cyan), inset var(--glow-cyan);
+  }
+
+  /* Animations */
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    41%, 43% { opacity: 0.8; }
+    45%, 47% { opacity: 0.9; }
+    50% { opacity: 1; }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% { 
+      filter: drop-shadow(0 0 8px hsl(var(--neon-blue) / 0.6));
+    }
+    50% { 
+      filter: drop-shadow(0 0 20px hsl(var(--neon-blue) / 0.9));
+    }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  @keyframes slide-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-flicker {
+    animation: flicker 3s infinite;
+  }
+
+  .animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-slide-in-up {
+    animation: slide-in-up 0.6s ease-out forwards;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
