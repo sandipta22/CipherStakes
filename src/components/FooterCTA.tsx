@@ -39,7 +39,7 @@ const FooterCTA = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5000/api/waitlist", {
+  const res = await fetch("https://cipherstake-backend.onrender.com/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
