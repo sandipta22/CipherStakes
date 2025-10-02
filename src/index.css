@@ -1,3 +1,27 @@
+  .navlink-hover-glow {
+    color: hsl(var(--neon-blue));
+    text-shadow: 0 0 8px hsl(var(--neon-blue) / 0.7), 0 0 16px hsl(var(--neon-blue) / 0.4);
+  }
+
+  .navlink-hover-underline {
+    background: hsl(var(--neon-blue));
+    border-radius: 2px;
+    height: 3px;
+    opacity: 0.85;
+    animation: navlink-underline-in 0.25s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  @keyframes navlink-underline-in {
+    from { width: 0; opacity: 0.2; }
+    to { width: 75%; opacity: 0.85; }
+  }
+  .neon-underline {
+    text-decoration: underline;
+    text-decoration-thickness: 3px;
+    text-underline-offset: 8px;
+    text-decoration-color: hsl(var(--neon-blue));
+    filter: drop-shadow(0 0 6px hsl(var(--neon-blue) / 0.7));
+  }
 /* Custom scrollbar for About section main container */
 .about-section-scrollbar {
   scrollbar-width: thin;

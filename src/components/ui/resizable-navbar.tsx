@@ -115,6 +115,38 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
 
 export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
   const [hovered, setHovered] = useState<number | null>(null);
+  const [activeIdx, setActiveIdx] = useState<number | null>(null);
+
+  // Listen to scroll and update activeIdx
+  React.useEffect(() => {
+    const handleScroll = () => {
+      let foundIdx = null;
+      items.forEach((item, idx) => {
+        const section = document.querySelector(item.link);
+        if (section) {
+          const rect = section.getBoundingClientRect();
+          if (rect.top <= 80 && rect.bottom > 80) {
+            foundIdx = idx;
+          }
+        }
+      });
+      setActiveIdx(foundIdx);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [items]);
+
+  // Smooth scroll handler
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, idx: number, link: string) => {
+    e.preventDefault();
+    const section = document.querySelector(link);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      setActiveIdx(idx);
+    }
+    if (onItemClick) onItemClick();
+  };
 
   return (
     <motion.div
@@ -127,22 +159,28 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
       {items.map((item, idx) => (
         <a
           onMouseEnter={() => setHovered(idx)}
-          onClick={onItemClick}
+          onClick={e => handleNavClick(e, idx, item.link)}
           className={cn(
-            "relative px-5 py-2 transition-colors duration-200 text-blue hover:neon-text-cyan",
+            "relative px-5 py-2 transition-colors duration-200 text-blue",
             "rounded-full overflow-hidden cursor-pointer"
           )}
           key={`link-${idx}`}
           href={item.link}
         >
-          {hovered === idx && (
-            <motion.div
-              layoutId="hovered"
-              className="absolute inset-0 h-full w-full rounded-full bg-[hsla(184,100%,50%,0.15)] shadow-[0_0_16px_4px_hsla(184,100%,50%,0.25)] pointer-events-none"
-              style={{ zIndex: 1 }}
-            />
+          {/* Neon glow and animated underline on hover */}
+          <span className={
+            "relative z-20 transition-colors duration-200" +
+            (hovered === idx ? " navlink-hover-glow" : "")
+          } style={{ position: 'relative' }}>{item.name}
+            {/* Animated underline on hover */}
+            {hovered === idx && (
+              <span className="navlink-hover-underline absolute left-1/2 -translate-x-1/2 bottom-0 w-3/4 h-1 block pointer-events-none"></span>
+            )}
+          </span>
+          {/* Neon underline for active */}
+          {activeIdx === idx && (
+            <span className="neon-underline absolute left-1/2 -translate-x-1/2 bottom-0 w-3/4 h-1 block pointer-events-none"></span>
           )}
-          <span className="relative z-20" style={{ position: 'relative' }}>{item.name}</span>
         </a>
       ))}
     </motion.div>

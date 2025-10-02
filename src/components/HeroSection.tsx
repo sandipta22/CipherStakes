@@ -31,19 +31,35 @@ const HeroSection = () => {
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="max-w-5xl mx-auto text-center space-y-8">
           {/* Main Headline with Flicker Effect */}
-          <h1 className=" font-orbitron font-bold leading-tight animate-flicker">
+          <h1 className="font-orbitron font-semibold leading-tight text-3xl md:text-5xl lg:text-6xl">
             <TypewriterEffect
               words={[
-                { text: "Unlock", className: "gradient-text" },
-                { text: "Yields", className: "gradient-text" },
-                { text: "with", className: "gradient-text" },
-                { text: "Just", className: "gradient-text" },
-                { text: "$10", className: "gradient-text" }
+                { text: "Unlock", className: "animated-gradient-text" },
+                { text: "Yields", className: "animated-gradient-text" },
+                { text: "with", className: "animated-gradient-text" },
+                { text: "Just", className: "animated-gradient-text" },
+                { text: "$10", className: "animated-gradient-text" }
               ]}
-              className="text-5xl md:text-7xl lg:text-8xl"
-              cursorClassName="bg-blue-500 text-5xl md:text-7xl lg:text-8xl"
+              className="text-inherit"
+              cursorClassName="bg-primary/40 text-inherit"
             />
           </h1>
+          <style>{`
+            .animated-gradient-text {
+              background: linear-gradient(270deg, #00eaff, #7f5cff, #00eaff, #7f5cff);
+              background-size: 400% 400%;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              color: transparent;
+              animation: gradientMove 6s ease-in-out infinite;
+            }
+            @keyframes gradientMove {
+              0% { background-position: 0% 50%; }
+              50% { background-position: 100% 50%; }
+              100% { background-position: 0% 50%; }
+            }
+          `}</style>
 
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-orbitron neon-text-blue">
             Puzzle Your Way to Crypto Riches

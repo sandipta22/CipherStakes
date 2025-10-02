@@ -173,20 +173,15 @@ const FooterCTA = () => {
                   <p className="text-sm text-muted-foreground mb-3">Connect with us:</p>
                   <div className="flex justify-center gap-3">
                     <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
-                      <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer">
+                      <a href="http://www.x.com/cipherstakes" target="_blank" rel="noopener noreferrer">
                         <Twitter className="h-5 w-5" />
                       </a>
                     </Button>
-                    <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
-                      <a href="https://t.me/" target="_blank" rel="noopener noreferrer">
-                        <Send className="h-5 w-5" />
-                      </a>
-                    </Button>
-                    <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
-                      <a href="https://discord.com/" target="_blank" rel="noopener noreferrer">
-                        <MessageCircle className="h-5 w-5" />
-                      </a>
-                    </Button>
+                     <Button variant="ghost" size="icon" className="hover:neon-border-blue" asChild>
+                       <a href="mailto:cipherstakes@gmail.com" target="_blank" rel="noopener noreferrer">
+                         <Mail className="h-5 w-5" />
+                       </a>
+                     </Button>
                   </div>
                 </div>
               </div>
