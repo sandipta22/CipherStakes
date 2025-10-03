@@ -71,7 +71,7 @@ const FooterCTA = () => {
       );
 
       // 3. Store in backend DB
-      const res = await fetch("http://localhost:5000/api/waitlist", {
+      const res = await fetch("https://cipherstake-backend-1.onrender.com/api/waitlist", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
